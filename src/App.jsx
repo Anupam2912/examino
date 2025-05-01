@@ -1,35 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
+import BasicTailwindTest from './components/BasicTailwindTest';
+
+// Pages
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Exams from './pages/Exams';
+import Exam from './pages/Exam';
+import Results from './pages/Results';
+import Attendance from './pages/Attendance';
+import TestPage from './pages/TestPage';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BasicTailwindTest />
+      <Router>
+        <AuthProvider>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Routes */}
+          <Route path="/" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } />
+
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } />
+
+          <Route path="/exams" element={
+            <PrivateRoute>
+              <Exams />
+            </PrivateRoute>
+          } />
+
+          <Route path="/results" element={
+            <PrivateRoute>
+              <Results />
+            </PrivateRoute>
+          } />
+
+          <Route path="/attendance" element={
+            <PrivateRoute>
+              <Attendance />
+            </PrivateRoute>
+          } />
+
+          <Route path="/exam/:examId" element={
+            <PrivateRoute>
+              <Exam />
+            </PrivateRoute>
+          } />
+
+          {/* Public Test Page */}
+          <Route path="/test" element={<TestPage />} />
+
+          {/* Redirect any unknown routes to Dashboard */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,15 @@
+.test-red {
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+.test-blue {
+  background-color: blue;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
