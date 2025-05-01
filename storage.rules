@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Reference images - users can only access their own reference images
+    match /reference/{userId}/{allPaths=**} {
+      allow read: if request.auth.uid == userId;
+      allow write: if false; // Only admins can upload reference images
+    }
+    
+    // Attendance images - users can only upload to their own folder
+    match /attendance/{userId}/{allPaths=**} {
+      allow read: if request.auth.uid == userId;
+      allow create: if request.auth.uid == userId;
+      allow update, delete: if false; // Prevent updates/deletes
+    }
+  }
+}

@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User profiles - users can only read/write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+    
+    // Submissions - users can only read/write their own submissions
+    match /submissions/{submissionId} {
+      allow read: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid == request.resource.data.userId;
+      allow update, delete: if false; // Prevent updates/deletes
+    }
+    
+    // Exams - users can only read exams, not modify them
+    match /exams/{examId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can modify exams
+    }
+    
+    // Attendance - users can only read their own attendance records
+    match /attendance/{recordId} {
+      allow read: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid == request.resource.data.userId;
+      allow update, delete: if false; // Prevent updates/deletes
+    }
+  }
+}
