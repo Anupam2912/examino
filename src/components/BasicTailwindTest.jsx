@@ -1,4 +1,4 @@
-import React from 'react';
+rimport React from 'react';
 
 export default function BasicTailwindTest() {
   return (

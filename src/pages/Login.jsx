@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
@@ -28,7 +28,7 @@ export default function Login() {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
       setError('Failed to sign in. Please check your credentials.');
@@ -110,6 +110,12 @@ export default function Login() {
             </p>
           </div>
         </form>
+
+        <div className="text-center mt-6">
+          <Link to="/" className="text-brand hover:text-blue-700 transition-colors">
+            &larr; Back to Home
+          </Link>
+        </div>
       </div>
     </div>
   );

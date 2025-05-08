@@ -20,16 +20,62 @@ const mockData = {
       title: 'Introduction to Programming',
       description: 'Basic concepts of programming',
       duration: 60,
-      total_questions: 20,
+      questions: [
+        {
+          questionText: 'What is the capital of France?',
+          options: ['London', 'Paris', 'Berlin', 'Madrid'],
+          correctAnswer: 1
+        },
+        {
+          questionText: 'Which of the following is NOT a programming language?',
+          options: ['Java', 'Python', 'HTML', 'C++'],
+          correctAnswer: 2
+        },
+        {
+          questionText: 'What does HTML stand for?',
+          options: ['Hyper Text Markup Language', 'High Tech Multi Language', 'Hyper Transfer Markup Language', 'Home Tool Markup Language'],
+          correctAnswer: 0
+        },
+        {
+          questionText: 'Which symbol is used for comments in JavaScript?',
+          options: ['#', '//', '<!-- -->', '/* */'],
+          correctAnswer: 1
+        },
+        {
+          questionText: 'What is the correct way to declare a variable in JavaScript?',
+          options: ['var x = 5;', 'variable x = 5;', 'x = 5;', 'int x = 5;'],
+          correctAnswer: 0
+        }
+      ],
       is_active: true,
+      created_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+      created_by: 'test-user-id'
     },
     {
       id: 'exam-2',
       title: 'Data Structures',
       description: 'Advanced data structures and algorithms',
       duration: 90,
-      total_questions: 30,
+      questions: [
+        {
+          questionText: 'Which data structure uses LIFO?',
+          options: ['Queue', 'Stack', 'Linked List', 'Tree'],
+          correctAnswer: 1
+        },
+        {
+          questionText: 'What is the time complexity of binary search?',
+          options: ['O(1)', 'O(n)', 'O(log n)', 'O(n²)'],
+          correctAnswer: 2
+        },
+        {
+          questionText: 'Which sorting algorithm has the best average time complexity?',
+          options: ['Bubble Sort', 'Insertion Sort', 'Quick Sort', 'Selection Sort'],
+          correctAnswer: 2
+        }
+      ],
       is_active: true,
+      created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      created_by: 'test-user-id'
     }
   ],
   submissions: [
@@ -37,7 +83,13 @@ const mockData = {
       id: 'submission-1',
       user_id: 'test-user-id',
       exam_id: 'exam-1',
-      exam_name: 'Introduction to Programming',
+      answers: [
+        1, // Paris
+        2, // HTML
+        0, // Hyper Text Markup Language
+        1, // //
+        0  // var x = 5;
+      ],
       score: 85,
       submitted_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     },
@@ -45,7 +97,11 @@ const mockData = {
       id: 'submission-2',
       user_id: 'test-user-id',
       exam_id: 'exam-2',
-      exam_name: 'Data Structures',
+      answers: [
+        1, // Stack
+        2, // O(log n)
+        2  // Quick Sort
+      ],
       score: 72,
       submitted_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     }
